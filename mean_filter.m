@@ -28,17 +28,11 @@ origional_image_matrix = readimg(origional_image);
 filter_window = zeros(window_size,window_size) + (1/(window_size^2)); 
 
 %convolve filter window over entire image creating new filtered image
-Convolve()
+filtered_image_matrix = convolve(origional_image_matrix, filter_window, window_size);
 
-
-%display comparison against origional and filtered image
-
-
-
-
-%how to save and show image
-%saveimg(origional_image_matrix, "test_image_save.pgm");
-%imshow("test_image_save.pgm")
-
+%save filtered image and display comparison against origional and filtered 
+saveimg(filtered_image_matrix, "mean_filtered_image.pgm");
+subplot(1,2,1), imshow(origional_image), title("Origional Image"); hold on
+subplot(1,2,2), imshow("mean_filtered_image.pgm"), title("Mean filtered image using window size: " + window_size); hold off
 
 end
