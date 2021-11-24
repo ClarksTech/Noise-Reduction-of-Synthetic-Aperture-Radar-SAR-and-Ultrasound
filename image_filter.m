@@ -27,7 +27,7 @@ origional_image = image_filename;
 origional_image_matrix = readimg(origional_image);
 
 % Perform convolution on the image matrix using specified filtering 
-filtered_image_matrix_with_pad = convolution(origional_image_matrix,filter_type,window_size);
+filtered_image_matrix_with_pad = convolution(origional_image_matrix, filter_type, window_size);
 
 % Remove empty padding arround the filtered image, so image matrix
 % of same size is returned
@@ -35,10 +35,7 @@ pad_size = floor(window_size/2);
 filtered_image_matrix = filtered_image_matrix_with_pad(pad_size+1:end-pad_size,pad_size+1:end-pad_size);
 
 % Save & display filtered image comparison against origional 
-saveimg(filtered_image_matrix, "filtered_image.pgm");
-subplot(1,2,1), imshow(origional_image), title("Origional Image"); hold on
-subplot(1,2,2), imshow("filtered_image.pgm"), title( filter_type + " filtered image, window size: " + window_size); hold off
-
+image_filter_comparison(origional_image, origional_image_matrix, filtered_image_matrix, filter_type, window_size);
 
 end
 
