@@ -36,7 +36,7 @@ dist_correction = zeros(window_size,window_size) + 1/sum(filter_window_dist, 'al
 filter_window = filter_window_dist.*dist_correction;
 
 %convolve filter window over entire image creating new filtered image
-gaussian_filtered_image = convolve(origional_image_matrix, filter_window, window_size);
+gaussian_filtered_image = convolve(origional_image_matrix, filter_window, window_size, 0);
 
 %save filtered image and display comparison against origional and filtered 
 saveimg(gaussian_filtered_image, "gaussian_filtered_image.pgm");

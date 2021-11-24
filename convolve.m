@@ -1,4 +1,4 @@
-function filtered_image_matrix = convolve(origional_image_matrix, filter_window, window_size)
+function filtered_image_matrix = convolve(origional_image_matrix, filter_window, window_size, unsharp_mask)
 %==========================================================================
 % Convolve filter window over image, producing and returning the filtered 
 % image matrix
@@ -7,6 +7,7 @@ function filtered_image_matrix = convolve(origional_image_matrix, filter_window,
 %   origional_image_matrix      image matrix to be convolved over
 %   filter_window               weighted window matrix    
 %   window_size                 size of filter window
+%   unsharp_mask                adaptive linear filter convolution if = 1
 %
 % Returns:
 %   filtered_image              filtered image matrix
@@ -39,15 +40,37 @@ for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for ev
         %add pixels contained in mask size to a new matrix
         image_pixels_in_mask = padded_image_matrix([above_range:below_range], [left_range:right_range]);
         
-        % perform multiplication of each pixel in mask with weighted filter
-        % mask
-        filtered_image_pixels = image_pixels_in_mask.*filter_window;
+        %if adaptive linear filter unsharp masking is used, use different
+        %method to determine result of convolution
+        if unsharp_mask == 1
+            %get parameters for unsharp masking filter
+            original = image_pixels_in_mask(((window_size+1)/2),((window_size+1)/2));
+            mean = sum(image_pixels_in_mask, 'all')/window_size^2;
+            std_dev = std(image_pixels_in_mask,1,"all");
+            snr = mean / std_dev;
+           
+            % constant k varies with SNR which is dependant on window,
+            % normalised between 0 and 1
+            minstd = 0;
+            maxstd = 127.5;
+            k = (snr - minstd) / (maxstd - minstd) ;
+            
+            %unsharp masking filter implementation 
+            final_pixel_value = (mean + k*(original - mean));
+            filtered_image_matrix_with_pad(R,C) = final_pixel_value;
+        end
 
-        
-        %Sum all the pixels to obtain the final pixel value, and add back
-        %to the corresponding central position
-        final_pixel_value = sum(filtered_image_pixels, 'all');
-        filtered_image_matrix_with_pad(R,C) = final_pixel_value;
+        %if adaptive linear filter not used, perform normal convolution
+        if unsharp_mask == 0
+            % perform multiplication of each pixel in mask with weighted filter
+            % mask
+            filtered_image_pixels = image_pixels_in_mask.*filter_window;
+    
+            %Sum all the pixels to obtain the final pixel value, and add back
+            %to the corresponding central position
+            final_pixel_value = sum(filtered_image_pixels, 'all');
+            filtered_image_matrix_with_pad(R,C) = final_pixel_value;
+        end
 
         %remove empty padding arround the filtered image, so image matrix
         %of same size is returned

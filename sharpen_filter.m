@@ -28,10 +28,10 @@ origional_image_matrix = readimg(origional_image);
 %zeros matrix created, and -1 added to each element - fastest method 
 filter_window = zeros(window_size,window_size) -1; 
 %replace central weight with number of weights-1
-filter_window([(window_size+1)/2,(window_size+1)/2]) = (window_size^2)-1;
+filter_window(((window_size+1)/2),((window_size+1)/2)) = (window_size^2)-1;
 
 %convolve filter window over entire image creating new filtered image
-sharpen_filtered_image = convolve(origional_image_matrix, filter_window, window_size);
+sharpen_filtered_image = convolve(origional_image_matrix, filter_window, window_size, 0);
 
 %save filtered image and display comparison against origional and filtered 
 saveimg(sharpen_filtered_image, "sharpen_filtered_image.pgm");

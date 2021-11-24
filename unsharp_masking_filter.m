@@ -1,14 +1,14 @@
-function mean_filtered_image = mean_filter(image_filename, window_size)
+function unsharp_mask_filtered_image = unsharp_masking_filter(image_filename, window_size)
 %==========================================================================
-% Read a P2/P5 format image file, perform mean filtering, returning
+% Read a P2/P5 format image file, perform sharpen filtering, returning
 % filtered image matrix
 %
 % Arguments:
-%   filename                image name to be filtered including extension
-%   window_size             size of filter window
+%   filename                        image name to be filtered including extension
+%   window_size                     size of filter window
 %
 % Returns:
-%   mean_filtered_image     filtered image matrix
+%   unsharp_mask_filtered_image     filtered image matrix
 %
 %==========================================================================
 
@@ -23,17 +23,14 @@ end
 %read in the image file and store in matrix
 origional_image = image_filename;
 origional_image_matrix = readimg(origional_image);
-
-%create filter window of defined size
-%zeros matrix created, and weight added to each element - fastest method 
-filter_window = zeros(window_size,window_size) + (1/(window_size^2)); 
+filter_window = zeros(window_size,window_size);
 
 %convolve filter window over entire image creating new filtered image
-mean_filtered_image= convolve(origional_image_matrix, filter_window, window_size, 0);
+unsharp_mask_filtered_image = convolve(origional_image_matrix, filter_window, window_size, 1);
 
 %save filtered image and display comparison against origional and filtered 
-saveimg(mean_filtered_image, "mean_filtered_image.pgm");
+saveimg(unsharp_mask_filtered_image, "unsharp_mask_filtered_image.pgm");
 subplot(1,2,1), imshow(origional_image), title("Origional Image"); hold on
-subplot(1,2,2), imshow("mean_filtered_image.pgm"), title("Mean filtered image using window size: " + window_size); hold off
+subplot(1,2,2), imshow("unsharp_mask_filtered_image.pgm"), title("Unsharp masking filtered image using window size: " + window_size); hold off
 
 end
