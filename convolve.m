@@ -41,12 +41,8 @@ for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for ev
         
         % perform multiplication of each pixel in mask with weighted filter
         % mask
-        filtered_image_pixels = zeros(window_size,window_size);
-        for x = 1:size(image_pixels_in_mask,1)           % for every row
-            for y = 1:size(image_pixels_in_mask,2)       % for every column
-                filtered_image_pixels(x,y) = image_pixels_in_mask(x,y)*filter_window(x,y);
-            end
-        end
+        filtered_image_pixels = image_pixels_in_mask.*filter_window;
+
         
         %Sum all the pixels to obtain the final pixel value, and add back
         %to the corresponding central position

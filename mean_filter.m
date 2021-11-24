@@ -5,6 +5,7 @@ function mean_filtered_image = mean_filter(image_filename, window_size)
 %
 % Arguments:
 %   filename                image name to be filtered including extension
+%   window_size             size of filter window
 %
 % Returns:
 %   mean_filtered_image     filtered image matrix
@@ -28,10 +29,10 @@ origional_image_matrix = readimg(origional_image);
 filter_window = zeros(window_size,window_size) + (1/(window_size^2)); 
 
 %convolve filter window over entire image creating new filtered image
-filtered_image_matrix = convolve(origional_image_matrix, filter_window, window_size);
+mean_filtered_image= convolve(origional_image_matrix, filter_window, window_size);
 
 %save filtered image and display comparison against origional and filtered 
-saveimg(filtered_image_matrix, "mean_filtered_image.pgm");
+saveimg(mean_filtered_image, "mean_filtered_image.pgm");
 subplot(1,2,1), imshow(origional_image), title("Origional Image"); hold on
 subplot(1,2,2), imshow("mean_filtered_image.pgm"), title("Mean filtered image using window size: " + window_size); hold off
 
