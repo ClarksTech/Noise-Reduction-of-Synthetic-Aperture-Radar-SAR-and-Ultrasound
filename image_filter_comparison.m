@@ -5,14 +5,16 @@ function image_filter_comparison(origional_image, origional_image_matrix, filter
 % 
 %
 % Arguments:
-%   Row                         current origional padded image row        
-%   Col                         current origional padded image column
-%   new_image                   matrix containing new image pixels      
-%   pixels_in_window            current pixels inside window position
+%   origional_image             origional pgm image        
+%   origional_image_matrix      origional image as matrix
+%   filtered_image_matrix       filtered image as matrix   
+%   filter_type                 type of filter used
 %   window_size                 window size
 %
 % Returns:
-%   Displays Plots
+%   Displays Plots for image pre and post-processing, canny edge detection
+%   is then performed to see the filterings impact on edge detection and
+%   noise reduction
 %
 %==========================================================================
 
