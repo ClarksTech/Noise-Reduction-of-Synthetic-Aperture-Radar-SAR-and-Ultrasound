@@ -25,17 +25,20 @@ std_dev = std(pixels_in_window,1,"all");
 %if statement to avoid NaN condition in div by 0 where standard deviation 
 % = 0 in completely flat sections of the image
 if std_dev == 0
-    snr = 0;
+    k = 1;
 else
+    % the constant k varies with 1/SNR which is dependant on window,
+    % normalised between 0 and 1 for values of k
     snr = mean / std_dev;
+    k_not_norm = 1/snr;
+    max_k = 1/snr_min;
+    min_k = 1/snr_max;
+    k = (k_not_norm - min_k) / (max_k - min_k);
 end
 
 % constant k varies with 1/SNR which is dependant on window,
 % normalised between 0 and 1 for values of k
-k_not_norm = 1/snr;
-max_k = 1/snr_min;
-min_k = 1/snr_max;
-k = (k_not_norm - min_k) / (max_k - min_k);
+
             
 %unsharp masking filter implementation 
 final_pixel_value = (mean + k*(original - mean));
