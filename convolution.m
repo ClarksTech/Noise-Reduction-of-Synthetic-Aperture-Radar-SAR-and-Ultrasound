@@ -1,4 +1,4 @@
-function filtered_image_matrix_with_pad = convolution(origional_image_matrix, filter, window_size)
+function [filtered_image_matrix_with_pad, window_size, std_dev] = convolution(origional_image_matrix, filter, window_size)
 %==========================================================================
 % Function to take image matrix, perform convolution with specified filter
 % return image matrix of filtered image
@@ -10,7 +10,9 @@ function filtered_image_matrix_with_pad = convolution(origional_image_matrix, fi
 %   
 %
 % Returns:
-%   filtered_image_matrix       filtered image displayed and returned
+%   filtered_image_matrix       filtered image returned
+%   window_size                 window size as gaussian filtering changes
+%   std_dev                     standard deviation used for gaussian
 %
 %==========================================================================
 
