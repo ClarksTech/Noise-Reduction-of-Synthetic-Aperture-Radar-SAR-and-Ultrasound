@@ -26,8 +26,29 @@ end
 origional_image = image_filename;
 origional_image_matrix = readimg(origional_image);
 
+% check selected filter type - prompt user for specific parameters as
+% required
+if filter_type == "gaussian"
+    prompt = "Enter standard deviation for Gaussian filter: ";
+    std_dev = input(prompt);
+    %generate window size from standard deviation
+    window_size = 2*(3*std_dev)+1;
+else
+std_dev = 0;
+end
+
+% If unsharp masking being performed, obtain min and max snr for whole
+% image and normalisation in later processing
+if filter_type == "unsharp masking"
+    [snr_max, snr_min] = snr_range(origional_image_matrix, window_size);
+else
+    %set to 0 if unsharp masking filter not used
+    snr_max = 0;
+    snr_min = 0;
+end
+
 % Perform convolution on the image matrix using specified filtering 
-[filtered_image_matrix_with_pad, window_size, std_dev] = convolution(origional_image_matrix, filter_type, window_size);
+[filtered_image_matrix_with_pad, window_size] = convolution(origional_image_matrix, filter_type, window_size, snr_max, snr_min, std_dev);
 
 % Remove empty padding arround the filtered image, so image matrix
 % of same size is returned

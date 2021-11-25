@@ -1,4 +1,4 @@
-function [filtered_image_matrix_with_pad, window_size, std_dev] = convolution(origional_image_matrix, filter, window_size)
+function [filtered_image_matrix_with_pad, window_size] = convolution(origional_image_matrix, filter, window_size, snr_max, snr_min, std_dev)
 %==========================================================================
 % Function to take image matrix, perform convolution with specified filter
 % return image matrix of filtered image
@@ -15,16 +15,6 @@ function [filtered_image_matrix_with_pad, window_size, std_dev] = convolution(or
 %   std_dev                     standard deviation used for gaussian
 %
 %==========================================================================
-
-% check selected filter type - prompt user for specific parameters as
-% required
-if filter == "gaussian"
-    prompt = "Enter standard deviation for Gaussian filter: ";
-    std_dev = input(prompt);
-    %generate window size from standard deviation
-    window_size = 2*(3*std_dev)+1;
-end
-
 
 % Pad the origional image so filter window does not wander out of bounds at
 % edge of image - replicatative padding used
@@ -60,7 +50,7 @@ for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for ev
         elseif filter == "gaussian"
             new_image = image_gaussian_filter(R, C, new_image, pixels_in_window, window_size, std_dev);
         elseif filter == "unsharp masking"
-            new_image = image_unsharp_masking_filter(R, C, new_image, pixels_in_window, window_size);  
+            new_image = image_unsharp_masking_filter(R, C, new_image, pixels_in_window, window_size, snr_max, snr_min);  
         elseif filter == "median"
             new_image = image_median_filter(R, C, new_image, pixels_in_window);  
         end
