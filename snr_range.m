@@ -46,7 +46,7 @@ for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for ev
         % if statement to avoid NaN condition in div by 0 where standard deviation 
         % = 0 in completely flat sections of the image
         if std_dev == 0
-            snr = 0;
+            snr = snr_maximum;
         else
             snr = mean / std_dev;
         end

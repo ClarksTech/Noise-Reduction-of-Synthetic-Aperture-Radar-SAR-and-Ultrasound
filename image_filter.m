@@ -34,7 +34,7 @@ if filter_type == "gaussian"
     %generate window size from standard deviation
     window_size = 2*(3*std_dev)+1;
 else
-std_dev = 0;
+std_dev = 0; % not used
 end
 
 % If unsharp masking being performed, obtain min and max snr for whole
