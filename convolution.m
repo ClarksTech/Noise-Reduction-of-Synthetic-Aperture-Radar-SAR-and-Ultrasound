@@ -27,7 +27,7 @@ new_image = zeros(size(padded_image_matrix,1),size(padded_image_matrix,2));
 image_row_size = size(padded_image_matrix,1);
 image_col_size = size(padded_image_matrix,2);
 
-%set previous row to 0 for efficiant nmedian filter
+% set previous row to first row for efficiant median filter
 previous_row = floor(window_size/2);
 previous_median = 0;
 previous_hist = 0;
