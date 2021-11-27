@@ -4,8 +4,8 @@ function filtered_image_matrix_with_pad = image_unsharp_masking_filter(Row, Col,
 % filtered image matrix, padded
 %
 % Arguments:
-%   Row                         current origional padded image row        
-%   Col                         current origional padded image column
+%   Row                         current original padded image row        
+%   Col                         current original padded image column
 %   new_image                   matrix containing new image pixels       
 %   pixels_in_window            current pixels inside window position
 %   window_size                 window size
@@ -17,12 +17,12 @@ function filtered_image_matrix_with_pad = image_unsharp_masking_filter(Row, Col,
 %
 %==========================================================================
 
-%get parameters for unsharp masking filter
+% get parameters for unsharp masking filter
 original = pixels_in_window(((window_size+1)/2),((window_size+1)/2));
 mean = sum(pixels_in_window, 'all')/window_size^2;
 std_dev = std(pixels_in_window,1,"all");
 
-%if statement to avoid NaN condition in div by 0 where standard deviation 
+% if statement to avoid NaN condition in div by 0 where standard deviation 
 % = 0 in completely flat sections of the image
 if std_dev == 0
     k = 0;
@@ -37,7 +37,7 @@ else
     k = (k_not_norm - min_k) / (max_k - min_k);
 end
             
-%unsharp masking filter implementation 
+% unsharp masking filter equation implementation 
 final_pixel_value = (mean + k*(original - mean));
 new_image(Row,Col) = final_pixel_value;
 

@@ -1,9 +1,9 @@
-function [snr_max, snr_min] = snr_range(origional_image_matrix, window_size)
+function [snr_max, snr_min] = snr_range(original_image_matrix, window_size)
 %==========================================================================
 % Function to determine SNR range for image
 %
 % Arguments:
-%   origional_image_matrix      image to be convolved with filter kernal
+%   original_image_matrix       image to be convolved with filter kernal
 %   window_size                 size of filter window
 %   
 %
@@ -19,7 +19,7 @@ snr_minimum = 127.5;
 
 % Pad the origional image so filter window does not wander out of bounds at
 % edge of image - replicatative padding used
-padded_image_matrix = padarray(origional_image_matrix,[floor(window_size/2),floor(window_size/2)],"replicate","both");
+padded_image_matrix = padarray(original_image_matrix,[floor(window_size/2),floor(window_size/2)],"replicate","both");
 
 % Determine number of rows and columns in padded image
 image_row_size = size(padded_image_matrix,1);

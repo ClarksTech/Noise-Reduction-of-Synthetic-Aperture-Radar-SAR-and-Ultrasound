@@ -1,12 +1,12 @@
-function image_filter_comparison(origional_image, origional_image_matrix, filtered_image_matrix, filter_type, window_size,std_dev)
+function image_filter_comparison(original_image, original_image_matrix, filtered_image_matrix, filter_type, window_size,std_dev)
 %==========================================================================
 % Function to plot the impact of image filtering, and edge detection on
 % resultant images
 % 
 %
 % Arguments:
-%   origional_image             origional pgm image        
-%   origional_image_matrix      origional image as matrix
+%   origional_image             original pgm image        
+%   origional_image_matrix      original image as matrix
 %   filtered_image_matrix       filtered image as matrix   
 %   filter_type                 type of filter used
 %   window_size                 window size
@@ -22,7 +22,7 @@ function image_filter_comparison(origional_image, origional_image_matrix, filter
 saveimg(filtered_image_matrix, "filtered_image.pgm");
 
 % display origional image
-subplot(2,2,1), imshow(origional_image), title("Original Image"); hold on
+subplot(2,2,1), imshow(original_image), title("Original Image"); hold on
 
 % if gausian filtering used, display standard deviation with filtered image
 % results, otherise only show window size
@@ -33,7 +33,7 @@ else
 end
 % Apply canny edge detection to the images pre and post filtering to help
 % determine the impact of the filter on noise reduction and edge detection
-subplot(2,2,3), edge(origional_image_matrix, "canny"), title("Original Image canny edge detection"); hold on
+subplot(2,2,3), edge(original_image_matrix, "canny"), title("Original Image canny edge detection"); hold on
 subplot(2,2,4), edge(filtered_image_matrix, "canny"), title("Filtered Image canny edge detection"); hold off
 
 end

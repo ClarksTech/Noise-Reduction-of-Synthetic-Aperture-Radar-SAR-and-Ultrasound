@@ -1,4 +1,4 @@
-function [filtered_image_matrix_with_pad, window_size] = convolution(origional_image_matrix, filter, window_size, snr_max, snr_min, std_dev)
+function [filtered_image_matrix_with_pad, window_size] = convolution(original_image_matrix, filter, window_size, snr_max, snr_min, std_dev)
 %==========================================================================
 % Function to take image matrix, perform convolution with specified filter
 % return image matrix of filtered image
@@ -18,7 +18,7 @@ function [filtered_image_matrix_with_pad, window_size] = convolution(origional_i
 
 % Pad the origional image so filter window does not wander out of bounds at
 % edge of image - replicatative padding used
-padded_image_matrix = padarray(origional_image_matrix,[floor(window_size/2),floor(window_size/2)],"replicate","both");
+padded_image_matrix = padarray(original_image_matrix,[floor(window_size/2),floor(window_size/2)],"replicate","both");
 
 % Create matrix of padded size to store filtered Pixel values
 new_image = zeros(size(padded_image_matrix,1),size(padded_image_matrix,2));
@@ -62,7 +62,7 @@ for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for ev
             new_image = image_unsharp_masking_filter(R, C, new_image, pixels_in_window, window_size, snr_max, snr_min);  
         elseif filter == "median"
             new_image = image_median_filter(R, C, new_image, pixels_in_window);  
-        elseif filter == "efficiant median"
+        elseif filter == "efficient median"
             [new_image, previous_row, previous_median, previous_hist] = image_efficient_median_filter(R, C, new_image, pixels_in_window, window_size, previous_row, previous_median, previous_hist);  
         end
     end

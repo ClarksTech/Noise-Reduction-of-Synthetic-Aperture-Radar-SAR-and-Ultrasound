@@ -1,7 +1,7 @@
 function image_filter(image_filename, filter_type, window_size)
 %==========================================================================
 % Function to take a pgm image, perform specified filter, display results
-% of filtering, with comparison to origional
+% of filtering, with comparison to original
 %
 % Arguments:
 %   image_file_name         image name to be filtered including extension
@@ -23,8 +23,8 @@ if(mod(window_size,2) == 0)
 end
 
 % Read in the image file and store in matrix
-origional_image = image_filename;
-origional_image_matrix = readimg(origional_image);
+original_image = image_filename;
+original_image_matrix = readimg(original_image);
 
 % check selected filter type - prompt user for specific parameters as
 % required
@@ -40,7 +40,7 @@ end
 % If unsharp masking being performed, obtain min and max snr for whole
 % image and normalisation in later processing
 if filter_type == "unsharp masking"
-    [snr_max, snr_min] = snr_range(origional_image_matrix, window_size);
+    [snr_max, snr_min] = snr_range(original_image_matrix, window_size);
 else
     %set to 0 if unsharp masking filter not used
     snr_max = 0;
@@ -48,7 +48,7 @@ else
 end
 
 % Perform convolution on the image matrix using specified filtering 
-[filtered_image_matrix_with_pad, window_size] = convolution(origional_image_matrix, filter_type, window_size, snr_max, snr_min, std_dev);
+[filtered_image_matrix_with_pad, window_size] = convolution(original_image_matrix, filter_type, window_size, snr_max, snr_min, std_dev);
 
 % Remove empty padding arround the filtered image, so image matrix
 % of same size is returned
@@ -56,7 +56,7 @@ pad_size = floor(window_size/2);
 filtered_image_matrix = filtered_image_matrix_with_pad(pad_size+1:end-pad_size,pad_size+1:end-pad_size);
 
 % Save & display filtered image comparison against origional 
-image_filter_comparison(origional_image, origional_image_matrix, filtered_image_matrix, filter_type, window_size, std_dev);
+image_filter_comparison(original_image, original_image_matrix, filtered_image_matrix, filter_type, window_size, std_dev);
 
 end
 
