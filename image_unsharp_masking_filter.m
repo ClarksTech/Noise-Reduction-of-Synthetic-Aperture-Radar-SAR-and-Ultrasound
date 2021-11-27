@@ -35,6 +35,7 @@ else
     max_k = 1/snr_min;
     min_k = 1/snr_max;
     k = (k_not_norm - min_k) / (max_k - min_k);
+end
             
 %unsharp masking filter implementation 
 final_pixel_value = (mean + k*(original - mean));

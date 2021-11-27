@@ -29,7 +29,8 @@ if (Row ~= previous_row)
     % for all pixels in the window, increment value of historgram
     for row = 1:window_size
         for col = 1:window_size
-            hist(pixels_in_window(row,col)) = hist(pixels_in_window(row,col)) +1;
+            hist((pixels_in_window(row,col)+1)) = hist((pixels_in_window(row,col)+1)) + 1;
+
         end
     end
     
@@ -62,7 +63,7 @@ else
     th = (window_size^2)/2;
     less_than_median = th;
     for col = 1:window_size
-        previous_hist(pixels_in_window(1,col)) = previous_hist(pixels_in_window(1,col)) - 1;
+        previous_hist((pixels_in_window(1,col)+1)) = previous_hist((pixels_in_window(1,col)+1)) - 1;
         % decrement less than median count if the value removed was less
         if pixels_in_window(1,col) < previous_median
             less_than_median = less_than_median - 1;
@@ -74,10 +75,10 @@ else
 
     % add new column values to the histogram comparing to median
     for col = 1:window_size
-        hist(pixels_in_window(window_size,col)) = hist(pixels_in_window(window_size,col)) + 1;
+        hist((pixels_in_window(window_size,col)+1)) = hist((pixels_in_window(window_size,col)+1)) + 1;
         % if the newly added value is less than previous median increment
         % the less than median counter
-        if pixels_in_window(window_size,col) < previous_median
+        if (pixels_in_window(window_size,col)+1) < previous_median
             less_than_median = less_than_median + 1;
         end
     end
