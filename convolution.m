@@ -27,10 +27,14 @@ new_image = zeros(size(padded_image_matrix,1),size(padded_image_matrix,2));
 image_row_size = size(padded_image_matrix,1);
 image_col_size = size(padded_image_matrix,2);
 
-% set previous row to first row for efficiant median filter
+% initialise feedback vairables for efficient median filter
 previous_row = floor(window_size/2);
 previous_median = 0;
 previous_hist = 0;
+
+% initialise filter window for gaussian filter to make implementation more
+% efficient
+generated_filter_window = 0;
 
 % Step through each pixel of the origional image and find pixel values
 % within window size
@@ -53,7 +57,7 @@ for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for ev
         elseif filter == "sharpen"
             new_image = image_sharpen_filter(R, C, new_image, pixels_in_window, window_size);
         elseif filter == "gaussian"
-            new_image = image_gaussian_filter(R, C, new_image, pixels_in_window, window_size, std_dev);
+            [new_image, generated_filter_window] = image_gaussian_filter(R, C, new_image, pixels_in_window, window_size, std_dev, generated_filter_window);
         elseif filter == "unsharp masking"
             new_image = image_unsharp_masking_filter(R, C, new_image, pixels_in_window, window_size, snr_max, snr_min);  
         elseif filter == "median"
