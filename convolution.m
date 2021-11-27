@@ -63,7 +63,7 @@ for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for ev
         elseif filter == "median"
             new_image = image_median_filter(R, C, new_image, pixels_in_window);  
         elseif filter == "efficiant median"
-            [new_image, previous_row, previous_median, previous_hist] = image_efficiant_median_filter(R, C, new_image, pixels_in_window, window_size, previous_row, previous_median, previous_hist);  
+            [new_image, previous_row, previous_median, previous_hist] = image_efficient_median_filter(R, C, new_image, pixels_in_window, window_size, previous_row, previous_median, previous_hist);  
         end
     end
 end

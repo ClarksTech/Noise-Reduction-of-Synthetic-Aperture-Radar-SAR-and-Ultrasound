@@ -1,6 +1,6 @@
-function [filtered_image_matrix_with_pad, previous_row, previous_median, previous_hist] = image_efficiant_median_filter(Row, Col, new_image, pixels_in_window, window_size, previous_row, previous_median, previous_hist)
+function [filtered_image_matrix_with_pad, previous_row, previous_median, previous_hist] = image_efficient_median_filter(Row, Col, new_image, pixels_in_window, window_size, previous_row, previous_median, previous_hist)
 %==========================================================================
-% perform efficiant median filtering, returning padded filtered image matrix
+% perform efficient median filtering, returning padded filtered image matrix
 % 
 %
 % Arguments:
@@ -11,7 +11,7 @@ function [filtered_image_matrix_with_pad, previous_row, previous_median, previou
 %   window_size                 window size
 %   previous_row                previous row to see if row has changed
 %   previous_median             previous median for efficiant LTM
-%   previous_hist               previous_hist for efficiant LTM
+%   previous_hist               previous_hist for efficient LTM
 %
 % Returns:
 %   filtered_image_matrix_with_pad      padded filtered image matrix
