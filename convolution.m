@@ -31,6 +31,7 @@ image_col_size = size(padded_image_matrix,2);
 previous_row = floor(window_size/2);
 previous_median = 0;
 previous_hist = 0;
+previous_PIW = 0;
 
 % initialise filter window for gaussian filter to make implementation more
 % efficient
@@ -64,6 +65,12 @@ for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for ev
             new_image = image_median_filter(R, C, new_image, pixels_in_window);  
         elseif filter == "efficient median"
             [new_image, previous_row, previous_median, previous_hist] = image_efficient_median_filter(R, C, new_image, pixels_in_window, window_size, previous_row, previous_median, previous_hist);  
+        elseif filter == "efficient truncated median"
+            [new_image, previous_row, previous_median, previous_hist] = image_efficient_truncated_median_filter(R, C, new_image, pixels_in_window, window_size, previous_row, previous_median, previous_hist);
+        elseif filter == "efficient median 2"
+            [new_image, previous_median, previous_hist, previous_PIW] = image_efficient_median_2(R, C, new_image, pixels_in_window, window_size, previous_median, previous_hist, previous_PIW);  
+        elseif filter == "adaptive median"
+            new_image = image_adaptive_weighted_median_filter(R, C, new_image, pixels_in_window, window_size);  
         end
     end
 end
