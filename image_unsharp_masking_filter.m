@@ -22,9 +22,8 @@ original = pixels_in_window(((window_size+1)/2),((window_size+1)/2));
 mean = sum(pixels_in_window, 'all')/window_size^2;
 std_dev = std(pixels_in_window,1,"all");
 
-% if statement to avoid NaN condition in div by 0 where standard deviation 
-% = 0 in completely flat sections of the image
-if std_dev == 0
+% if statement to avoid NaN condition in div by 0 where mean = 0 
+if mean == 0 
     k = 0;
 else
     % the constant k varies with 1/SNR which is dependant on window,
