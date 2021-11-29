@@ -53,7 +53,7 @@ for row = 1:window_size             % for every row
             if final_weight < 0
                 final_weight = 0;
             end
-            % replace pint in weighted filter window with final weight
+            % replace point in weighted filter window with final weight
             filter_window(row,column) = final_weight;
         end
     end
