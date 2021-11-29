@@ -39,7 +39,7 @@ generated_filter_window = 0;
 
 % Step through each pixel of the origional image and find pixel values
 % within window size
-for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for every row
+for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for every row 
     for C = 1+floor(window_size/2):image_col_size-floor(window_size/2)  % for every column
 
         % Calculate range around current pixel for the window
@@ -71,6 +71,8 @@ for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for ev
             [new_image, previous_median, previous_hist, previous_PIW] = image_efficient_median_2(R, C, new_image, pixels_in_window, window_size, previous_median, previous_hist, previous_PIW);  
         elseif filter == "adaptive median"
             new_image = image_adaptive_weighted_median_filter(R, C, new_image, pixels_in_window, window_size);  
+        elseif filter == "truncated median"
+            new_image = image_truncated_median_filter(R, C, new_image, pixels_in_window, window_size);
         end
     end
 end
