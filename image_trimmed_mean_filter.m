@@ -40,6 +40,9 @@ sum_weights = sum(trim_mask, 'all');
 % divide by sum of weights to atempt DC distortion prevention - not perfect
 final_pixel_value = sum_trimmed / sum_weights;
 
+% round final vale to integer intensity
+final_pixel_value = round(final_pixel_value);
+
 % return updated new image
 new_image(Row,Col) = final_pixel_value;
 filtered_image_matrix_with_pad = new_image;

@@ -23,6 +23,9 @@ filter_window = zeros(window_size,window_size) + (1/(window_size^2));
 
 % perform multiplication of each pixel in mask with weighted filter
 filtered_image_pixels = pixels_in_window.*filter_window;
+
+% round values to integer intensities
+filtered_image_pixels = round(filtered_image_pixels);
     
 % Sum all the pixels to obtain the final pixel value, and add back
 % to the corresponding central position

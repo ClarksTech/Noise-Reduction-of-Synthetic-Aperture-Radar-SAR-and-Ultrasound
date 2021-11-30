@@ -49,10 +49,21 @@ else
     snr_min = 0;
 end
 
+% If sharpening being performed, obtain min and max sharpness for whole
+% image for normalisation in later processing
+if filter_type == "sharpen"
+    % call function returning min and max sharpen values
+    [sharpen_max, sharpen_min] = sharpen_range(original_image_matrix, window_size);
+else
+    % set to 0 non - use condition if unsharp masking filter not used
+    sharpen_max = 0;
+    sharpen_min = 0;
+end
+
 % Perform convolution on the image matrix using specified filtering 
 [filtered_image_matrix_with_pad, window_size] = ...
     convolution(original_image_matrix, filter_type, window_size, ...
-    snr_max, snr_min, std_dev);
+    snr_max, snr_min, std_dev, sharpen_max, sharpen_min);
 
 % Remove empty padding arround the filtered image, so image matrix
 % of same size is returned

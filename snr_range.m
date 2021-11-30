@@ -19,7 +19,8 @@ snr_minimum = 127.5;
 
 % Pad the origional image so filter window does not wander out of bounds at
 % edge of image - replicatative padding used
-padded_image_matrix = padarray(original_image_matrix,[floor(window_size/2),floor(window_size/2)],"replicate","both");
+padded_image_matrix = padarray(original_image_matrix,[floor(window_size/2)...
+    ,floor(window_size/2)],"replicate","both");
 
 % Determine number of rows and columns in padded image
 image_row_size = size(padded_image_matrix,1);
@@ -27,8 +28,8 @@ image_col_size = size(padded_image_matrix,2);
 
 % Step through each pixel of the origional image and save SNR of each
 % window
-for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for every row
-    for C = 1+floor(window_size/2):image_col_size-floor(window_size/2)  % for every column
+for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % row
+    for C = 1+floor(window_size/2):image_col_size-floor(window_size/2)  % col
 
         % Calculate range around current pixel for the window
         above_range = (R - floor(window_size/2));
@@ -37,14 +38,15 @@ for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % for ev
         right_range = (C + floor(window_size/2));
 
         % Add pixels contained in window size to a new matrix
-        pixels_in_window = padded_image_matrix([above_range:below_range], [left_range:right_range]);
+        pixels_in_window = padded_image_matrix([above_range:below_range],...
+            [left_range:right_range]);
         
         % calculate mean and standard deviation
         mean = sum(pixels_in_window, 'all')/window_size^2;
         std_dev = std(pixels_in_window,1,"all");
 
-        % if statement to avoid NaN condition in div by 0 where standard deviation 
-        % = 0 in completely flat sections of the image
+        % if statement to avoid NaN condition in div by 0 where standard 
+        % deviation = 0 in completely flat sections of the image
         if std_dev == 0
             snr = snr_maximum;
         else

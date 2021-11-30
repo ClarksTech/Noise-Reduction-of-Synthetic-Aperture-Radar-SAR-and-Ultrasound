@@ -1,6 +1,6 @@
 function [filtered_image_matrix_with_pad, window_size] = ...
     convolution(original_image_matrix, filter, window_size,...
-    snr_max, snr_min, std_dev)
+    snr_max, snr_min, std_dev, sharpen_max, sharpen_min)
 %==========================================================================
 % Function to take image matrix, perform convolution with specified filter
 % return image matrix of filtered image
@@ -62,7 +62,7 @@ for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % every 
         % run the sharpen filter if the user specified sharpen
         elseif filter == "sharpen"
             new_image = image_sharpen_filter(R, C, new_image,...
-                pixels_in_window, window_size);
+                pixels_in_window, window_size, sharpen_max, sharpen_min);
         % run the gaussian filter if the user specified gaussian
         elseif filter == "gaussian"
             [new_image, generated_filter_window] = ...
