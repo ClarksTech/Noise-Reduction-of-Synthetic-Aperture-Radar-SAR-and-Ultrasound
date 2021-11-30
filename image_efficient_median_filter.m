@@ -18,7 +18,7 @@ function [filtered_image_matrix_with_pad, first_col, previous_hist] = image_effi
 %
 %==========================================================================
 
-% must be re done every new row as entire histogram changes
+% must be re-done every new row as entire histogram changes
 if Col == (1 + floor(window_size/2))
 
     % create histogram of pixels in window

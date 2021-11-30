@@ -16,7 +16,8 @@ function filtered_image_matrix_with_pad = image_mean_filter(Row, Col, new_image,
 %==========================================================================
 
 % create filter window of defined size
-% zeros matrix created, and equal weight added to each element
+% zeros matrix created, and equal weight added to each element (divided by
+% number of weights to avoid DC distortion)
 filter_window = zeros(window_size,window_size) + (1/(window_size^2));
 
 % perform multiplication of each pixel in mask with weighted filter

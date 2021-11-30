@@ -25,7 +25,7 @@ constant = 10;
 
 % create distance mask
 filter_window_distance = zeros(window_size,window_size);
-% calculate distance from centre of mask and add
+% calculate distance from centre of mask and add to filter mask
 window_centre = ((window_size+1)/2);
 for row = 1:window_size             % for every row
     for column = 1:window_size      % for every column
@@ -39,8 +39,7 @@ end
 filter_window = zeros(window_size,window_size);
 for row = 1:window_size             % for every row
     for column = 1:window_size      % for every column
-        % if condition to avoid div by 0 if the mean is 0 or 255 and
-        % standard deviation becomes 0
+        % if condition to avoid div by 0 if the mean is 0
         if mean == 0 
             % if mean is 0 all pixel values must be 0 therefore all may be
             % given central weight as weighting negated with std_dev = 0
@@ -78,16 +77,15 @@ end
      cumulative_weight = cumulative_weight + sorted_matrix(weight,2);
      % if cumulative weight is median point or above median has been found
      if cumulative_weight >= median_point
-         % ser median to correspongin sorted column and break out of loop
+         % set median to correspongin sorted column and break out of loop
          median = sorted_matrix(weight,1);
          weight = (window_size^2) + 1;
          break
      end
  end
 
-% update the new image
+% update pixel in the new image
 new_image(Row,Col) = median;
-
 % return updated new image
 filtered_image_matrix_with_pad = new_image;
 end

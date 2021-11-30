@@ -14,12 +14,10 @@ function image_filter(image_filename, filter_type, window_size)
 %
 %==========================================================================
 
-% check window size is odd - give error message if not
-msg=' ';
+% check window size is odd using modulo division - give error message if not
 if(mod(window_size,2) == 0)
-    tmp=sprintf('Error: window size not valid, please enter odd number.\n');
-    msg=strcat(msg,tmp);
-    error(msg);
+    % return error prompting user to re-enter a valid window size
+    error('Error: window size not valid, please enter odd number.');
 end
 
 % Read in the image file and store in matrix
@@ -29,20 +27,24 @@ original_image_matrix = readimg(original_image);
 % check selected filter type - prompt user for specific parameters as
 % required
 if filter_type == "gaussian"
+    % prompt user to enter standard deviation as gaussian filter creates
+    % window size depending on this
     prompt = "Enter standard deviation for Gaussian filter: ";
     std_dev = input(prompt);
     %generate window size from standard deviation
     window_size = 2*(3*std_dev)+1;
 else
-std_dev = 0; % not used
+    % otherwise set standard deviation to non use value 0
+    std_dev = 0;
 end
 
 % If unsharp masking being performed, obtain min and max snr for whole
-% image and normalisation in later processing
+% image for normalisation in later processing
 if filter_type == "unsharp masking"
+    % call function returning min and max snr values
     [snr_max, snr_min] = snr_range(original_image_matrix, window_size);
 else
-    %set to 0 if unsharp masking filter not used
+    % set to 0 non- use condition if unsharp masking filter not used
     snr_max = 0;
     snr_min = 0;
 end

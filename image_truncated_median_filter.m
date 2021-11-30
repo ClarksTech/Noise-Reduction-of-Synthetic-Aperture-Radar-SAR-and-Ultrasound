@@ -1,6 +1,7 @@
 function filtered_image_matrix_with_pad = image_truncated_median_filter(Row, Col, new_image, pixels_in_window, window_size)
 %==========================================================================
-% perform truncated median filtering, returning filtered image matrix, padded
+% perform truncated median filtering (approximates mode filter), 
+% returning padded filtered image matrix
 % 
 %
 % Arguments:
@@ -21,16 +22,16 @@ pixels_in_window_1d = reshape(pixels_in_window,1,numel(pixels_in_window));
 % sort pixels in ascending order
 sorted_pixels_in_window = sort(pixels_in_window_1d);
 
-% find median position in list
+% find original median position in list
 median_pos = (numel(sorted_pixels_in_window)+1)/2;
 
-% get value for median pixel, and add into the new image
+% get value for original median pixel, and add into the new image
 original_median_value = sorted_pixels_in_window(median_pos);
 
 % histogram for all intensities
 trunk_hist = zeros(1,256);
 
-% for all pixels in window increse histogram value
+% for all pixels in window increase histogram value
 for R = 1:window_size                       % for every row
     for C = 1:window_size                   % for every column
         intensity = pixels_in_window(R,C);
@@ -39,15 +40,21 @@ for R = 1:window_size                       % for every row
 end
 
 % Find direction to truncate the median histogram
-% find difference between median and min/max intensity
+% find difference between original median and min/max intensity
+% lower side difference
 min_intense = find(trunk_hist~=0, 1, "first") - 1;
 min_dif = original_median_value - min_intense;
-% find maximum intensity 
+% higher side differance
 max_intense = find(trunk_hist~=0, 1, "last") - 1;
 max_dif = max_intense - original_median_value;
 
+% if min and max side differences are 0 then no truncation can be performed
+% as all values the same truncation would have no impact - return original
+% median
 if min_dif == 0 || max_dif == 0
     truncated_median_value = original_median_value;
+
+% otherwise apply truncation and find new median (mode approximation)
 else
 
     % Apply truncation to the histogram so median bisects
@@ -82,7 +89,7 @@ else
         if trunk_hist(trunk_hist_val) > 0
             hist_count = hist_count + trunk_hist(trunk_hist_val);
         end
-        % when counter is above median point set as final pixel value
+        % when counter is above median point set as final median value
         if hist_count >= trunkmedian
             truncated_median_value = trunk_hist_val;
             trunk_hist_val = 256;
@@ -91,9 +98,8 @@ else
     end    
 end
 
+% return updated new image with final truncated median added
 new_image(Row,Col) = truncated_median_value;
-
-% return updated new image
 filtered_image_matrix_with_pad = new_image;
 end
 

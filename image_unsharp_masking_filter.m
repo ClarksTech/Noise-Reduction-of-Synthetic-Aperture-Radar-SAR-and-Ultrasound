@@ -23,20 +23,25 @@ mean = sum(pixels_in_window, 'all')/window_size^2;
 std_dev = std(pixels_in_window,1,"all");
 
 % if statement to avoid NaN condition in div by 0 where mean = 0 
-if mean == 0 
-    k = 0;
+if std_dev == 0
+    % if no standard deviation there is high SNR therefore return the mean
+    % by setting k = 1
+    k = 1;
 else
-    % the constant k varies with 1/SNR which is dependant on window,
-    % normalised between 0 and 1 for values of k based on whole image
-    % statistics
+    % the constant k varies with 1/SNR which is dependant on the window
+    % calculate vaule for k in specific window
     snr = mean / std_dev;
     k_not_norm = 1/snr;
+    % normalise k against the whole window using entire image min and max
+    % snr values
     max_k = 1/snr_min;
     min_k = 1/snr_max;
+    % normalisation equation
     k = (k_not_norm - min_k) / (max_k - min_k);
 end
             
-% unsharp masking filter equation implementation 
+% unsharp masking filter equation implementation using calculated k value
+% using windowspecific statistics
 final_pixel_value = (mean + k*(original - mean));
 new_image(Row,Col) = final_pixel_value;
 

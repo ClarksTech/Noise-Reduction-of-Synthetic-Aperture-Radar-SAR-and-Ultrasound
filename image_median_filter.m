@@ -8,7 +8,6 @@ function filtered_image_matrix_with_pad = image_median_filter(Row, Col, new_imag
 %   Col                         current origional padded image column
 %   new_image                   matrix containing new image pixels      
 %   pixels_in_window            current pixels inside window position
-%   window_size                 window size
 %
 % Returns:
 %   filtered_image_matrix_with_pad     padded filtered image matrix
@@ -21,10 +20,10 @@ pixels_in_window_1d = reshape(pixels_in_window,1,numel(pixels_in_window));
 % sort pixels in ascending order
 sorted_pixels_in_window = sort(pixels_in_window_1d);
 
-% find median position in list
+% calculate median position in list
 median_pos = (numel(sorted_pixels_in_window)+1)/2;
 
-% get value for median pixel, and add into the new image
+% find value for median pixel, and add into the new image
 final_pixel_value = sorted_pixels_in_window(median_pos);
 new_image(Row,Col) = final_pixel_value;
 
