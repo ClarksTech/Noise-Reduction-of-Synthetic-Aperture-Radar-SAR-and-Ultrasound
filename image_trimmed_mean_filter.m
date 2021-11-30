@@ -1,4 +1,5 @@
-function filtered_image_matrix_with_pad = image_trimmed_mean_filter(Row, Col, new_image, pixels_in_window, window_size)
+function filtered_image_matrix_with_pad = ...
+    image_trimmed_mean_filter(Row, Col, new_image, pixels_in_window, window_size)
 %==========================================================================
 % perform trimmed mean filtering, returning filtered image matrix, padded
 % 

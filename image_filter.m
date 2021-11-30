@@ -50,15 +50,20 @@ else
 end
 
 % Perform convolution on the image matrix using specified filtering 
-[filtered_image_matrix_with_pad, window_size] = convolution(original_image_matrix, filter_type, window_size, snr_max, snr_min, std_dev);
+[filtered_image_matrix_with_pad, window_size] = ...
+    convolution(original_image_matrix, filter_type, window_size, ...
+    snr_max, snr_min, std_dev);
 
 % Remove empty padding arround the filtered image, so image matrix
 % of same size is returned
 pad_size = floor(window_size/2);
-filtered_image_matrix = filtered_image_matrix_with_pad(pad_size+1:end-pad_size,pad_size+1:end-pad_size);
+filtered_image_matrix = ...
+    filtered_image_matrix_with_pad(pad_size+1:end-pad_size,...
+    pad_size+1:end-pad_size);
 
 % Save & display filtered image comparison against origional 
-image_filter_comparison(original_image, original_image_matrix, filtered_image_matrix, filter_type, window_size, std_dev);
+image_filter_comparison(original_image, original_image_matrix, ...
+    filtered_image_matrix, filter_type, window_size, std_dev);
 
 end
 

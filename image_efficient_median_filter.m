@@ -1,4 +1,6 @@
-function [filtered_image_matrix_with_pad, first_col, previous_hist] = image_efficient_median_filter(Row, Col, new_image, pixels_in_window, window_size, previous_first_col, previous_hist)
+function [filtered_image_matrix_with_pad, first_col, previous_hist] = ...
+    image_efficient_median_filter(Row, Col, new_image, pixels_in_window, ...
+    window_size, previous_first_col, previous_hist)
 %==========================================================================
 % perform efficient median filtering, returning padded filtered image matrix
 % 

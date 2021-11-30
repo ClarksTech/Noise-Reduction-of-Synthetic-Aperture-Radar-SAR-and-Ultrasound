@@ -1,4 +1,6 @@
-function filtered_image_matrix_with_pad = image_unsharp_masking_filter(Row, Col, new_image, pixels_in_window, window_size, snr_max, snr_min)
+function filtered_image_matrix_with_pad = ...
+    image_unsharp_masking_filter(Row, Col, new_image, ...
+    pixels_in_window, window_size, snr_max, snr_min)
 %==========================================================================
 % perform unsharp masking sharpen adaptive linear filtering returning 
 % filtered image matrix, padded

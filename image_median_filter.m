@@ -1,4 +1,5 @@
-function filtered_image_matrix_with_pad = image_median_filter(Row, Col, new_image, pixels_in_window)
+function filtered_image_matrix_with_pad = ...
+    image_median_filter(Row, Col, new_image, pixels_in_window)
 %==========================================================================
 % perform median filtering, returning filtered image matrix, padded
 % 

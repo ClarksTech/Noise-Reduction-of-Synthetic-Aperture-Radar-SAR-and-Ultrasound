@@ -1,6 +1,9 @@
-function filtered_image_matrix_with_pad = image_adaptive_weighted_median_filter(Row, Col, new_image, pixels_in_window, window_size)
+function filtered_image_matrix_with_pad = ...
+    image_adaptive_weighted_median_filter(Row, Col, new_image,...
+    pixels_in_window, window_size)
 %==========================================================================
-% perform adaptive weighted median filtering, returning filtered image matrix, padded
+% perform adaptive weighted median filtering, returning padded filtered 
+% image matrix
 % 
 %
 % Arguments:
@@ -31,7 +34,8 @@ for row = 1:window_size             % for every row
     for column = 1:window_size      % for every column
         % calculate distance from central pixel and replace mask value with
         % this distance
-        filter_window_distance(row,column) = sqrt((window_centre-column)^2+(window_centre-row)^2);
+        filter_window_distance(row,column) = sqrt((window_centre-column)^2 ...
+            +(window_centre-row)^2);
     end
 end
 
@@ -46,7 +50,8 @@ for row = 1:window_size             % for every row
             filter_window(row,column) = floor((central_weight));
         else
             % if not div by 0 condition, calculate approptiate weights
-            final_weight = floor((central_weight -((filter_window_distance(row,column)*constant*std_dev)/mean)));
+            final_weight = floor((central_weight -...
+                ((filter_window_distance(row,column)*constant*std_dev)/mean)));
             % if the final weight is less than 0 - set to 0 to avoid
             % negatives
             if final_weight < 0
