@@ -57,9 +57,12 @@ filtered_image_pixels = pixels_in_window.*filter_window;
 % Sum all the pixels to obtain the final pixel value, and add back
 % to the corresponding central position
 final_pixel_value = sum(filtered_image_pixels, 'all');
-new_image(Row,Col) = final_pixel_value;
+
+% round to nearest intiger intensity value
+final_pixel_value = round(final_pixel_value);
 
 % return updated new image
+new_image(Row,Col) = final_pixel_value;
 filtered_image_matrix_with_pad = new_image;
 
 % return filter window for use in next position of window

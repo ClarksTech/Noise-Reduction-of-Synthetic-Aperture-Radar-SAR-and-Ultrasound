@@ -41,7 +41,7 @@ final_pixel_value = (final_pixel_value-sharpen_min)*...
     (255/(sharpen_max-sharpen_min));
 
 % round to intiger intensity
-final_pixel_value = floor(final_pixel_value);
+final_pixel_value = round(final_pixel_value);
 
 % return updated new image
 new_image(Row,Col) = final_pixel_value;

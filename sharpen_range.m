@@ -56,7 +56,7 @@ for R = 1+floor(window_size/2):image_row_size-floor(window_size/2)      % row
         % take absolute value
         final_pixel_value = abs(final_pixel_value);
         % round to intiger intensity
-        final_pixel_value = floor(final_pixel_value);
+        final_pixel_value = round(final_pixel_value);
         
         % if sharpen val is higher than current maximum - update new maximum
         if final_pixel_value > sharpen_maximum

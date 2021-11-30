@@ -45,9 +45,12 @@ end
 % unsharp masking filter equation implementation using calculated k value
 % using windowspecific statistics
 final_pixel_value = (mean + k*(original - mean));
-new_image(Row,Col) = final_pixel_value;
+
+% round to intiger intensity
+final_pixel_value = round(final_pixel_value);
 
 % return updated new image
+new_image(Row,Col) = final_pixel_value;
 filtered_image_matrix_with_pad = new_image;
 end
 
