@@ -5,8 +5,8 @@ function filtered_image_matrix_with_pad = ...
 % 
 %
 % Arguments:
-%   Row                         current origional padded image row        
-%   Col                         current origional padded image column
+%   Row                         current original padded image row        
+%   Col                         current original padded image column
 %   new_image                   matrix containing new image pixels      
 %   pixels_in_window            current pixels inside window position
 %

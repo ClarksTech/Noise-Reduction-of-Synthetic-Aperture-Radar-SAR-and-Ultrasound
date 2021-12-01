@@ -25,7 +25,7 @@ mean = sum(pixels_in_window, 'all')/window_size^2;
 std_dev = std(pixels_in_window,1,"all");
 
 % if statement to avoid NaN condition in div by 0 where mean = 0 
-if std_dev == 0
+if mean == 0
     % if no standard deviation there is high SNR therefore return the mean
     % by setting k = 1
     k = 1;

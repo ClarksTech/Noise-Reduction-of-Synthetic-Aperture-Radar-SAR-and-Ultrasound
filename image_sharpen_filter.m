@@ -23,7 +23,7 @@ function filtered_image_matrix_with_pad = ...
 % zeros matrix created, and -1 added to each element
 filter_window = zeros(window_size,window_size) -1; 
 % replace central weight with number of weights-1 to produce final
-% sharpening filter that avoids DC distortion
+% sharpening filter with DC distortion
 filter_window(((window_size+1)/2),((window_size+1)/2)) = (window_size^2)-1;
 
 % perform multiplication of each pixel in mask with weighted filter
